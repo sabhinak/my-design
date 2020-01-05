@@ -1,26 +1,19 @@
 import React from 'react';
 import SplitGraph from '../SplitGraph';
 import createConfig from '../splitGraphConfig';
-import some from './some.svg'
-import none from './none.svg';
-import yes from '../../images/yes.svg';
-import baby from './baby.svg';
+import partiallyIcon from './some.svg'
+import noIcon from './none.svg';
+import yesIcon from './yes.svg';
+import idontknowIcon from './baby.svg';
 import categoryimg from './education.svg';
+import house from './house.svg';
 
-
-
-const title = (<div>
-                 <h1>Education</h1>
-                     <p>Do all of the children go to school? 
-                     </p>
-                     <button onclick='' >Open</button>
-                </div>);
-
-
-const yesIcon = yes;
-const noIcon = none;
-const partiallyIcon = some;
-const idontknowIcon = baby;
+const Title = () => {
+    return <div>
+        <h1>Education</h1>
+            <h2> Do all your children go to school? </h2>
+    </div>;
+}
 
 const EducationSplitGraph = ({yes, partially, no, idontknow}) => {
     const configObj = createEducationSplitGraphConfig(yes, no, partially, idontknow);
@@ -29,20 +22,20 @@ const EducationSplitGraph = ({yes, partially, no, idontknow}) => {
         title={configObj.title} 
         categoryImage={configObj.categoryImage}
         data={Array.from(configObj.getData())}
-        bgColor = '#F8A8A8'
+        bgColor = '#E8898B '
         />
 }
 
 function createEducationSplitGraphConfig(yes, partially, no, idontknow)
 {
     let rawConfig = {
-        title: title,
+        title: Title(),
         categoryImage: categoryimg,
         data: {
-            yes: {value: yes, icon1: yesIcon, icon2: yesIcon},
-            partially: {value: partially, icon1: partiallyIcon, icon2: partiallyIcon},
-            no: {value: no, icon1: noIcon, icon2: noIcon},
-            idontknow: {value: idontknow, icon1: idontknowIcon, icon2: idontknowIcon},
+            yes: {value: yes, icon1: house, icon2: yesIcon},
+            partially: {value: partially, icon1: house, icon2: partiallyIcon},
+            no: {value: no, icon1: house, icon2: noIcon},
+            idontknow: {value: idontknow, icon1: house, icon2: idontknowIcon},
         }
     };
 

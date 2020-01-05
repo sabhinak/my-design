@@ -15,6 +15,7 @@ const ValueNumber = styled.p`
     text-align: center;    
     color: white;
     font-weight: bold;
+    font-size: 30px;
     width: 100%;
 `;
 
@@ -24,9 +25,11 @@ const IconImage = styled.img`
     min-height: 85px;
 `;
 
-const SplitUnitContent = ({icon1, number, icon2}) => {
-    return <ContainerDiv>
-        <IconImage src={icon1}/>
+const SplitUnitContent = ({icon1, number, icon2, className}) => {
+    const IconImage1 = icon1 ? <IconImage src={icon1}/> : null;
+    
+    return <ContainerDiv className={className}>
+        {IconImage1}
         <ValueNumber>{Math.floor(number)}</ValueNumber>
         <IconImage src={icon2}/>
     </ContainerDiv>;

@@ -1,16 +1,12 @@
 import styled, {keyframes} from 'styled-components';
 
 const animationKeyframes = keyframes`
-    0% {
-        margin: 0;
-    }
-
-    30% {
+    0%, 20% {
         margin: 0;
     }
 
     50% {
-        margin: 0 16px 0 16px;
+        margin: 0 20px 0 20px;
     }
 
     55% {
@@ -35,11 +31,12 @@ const animationKeyframes = keyframes`
 
     100% {
         margin: 0 5.5px 0 5.5px;
+        border-radius: 15px;
     }
 `;
 
 const width = props => props.width ;
-const animTime = props => (props.animTime || 2) + 's';
+const animTime = props => (props.animTime || 3) + 's';
 
 const AnimatedDiv = styled.div`
     width: ${width};
@@ -48,4 +45,3 @@ const AnimatedDiv = styled.div`
 `;
 
 export default AnimatedDiv;
-

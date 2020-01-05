@@ -67,7 +67,6 @@ function createDataConfig(key, dataConfigJson)
 {
     if (
         !dataConfigJson.hasOwnProperty('value')
-        || !dataConfigJson.hasOwnProperty('icon1')
         || !dataConfigJson.hasOwnProperty('icon2')
     ){
         throw new Error("Invalid json: " + JSON.stringify(dataConfigJson));
@@ -79,9 +78,9 @@ let config = {
     title: 'Gender',
     categoryImage: men,
     data: {
-        male: {value: 30, icon1: men, icon2: men},
-        female: {value: 20, icon1: Women, icon2: Women},
-        other: {value: 78, icon1: svg, icon2: svg},
+        male: {value: 30, icon2: men},
+        female: {value: 20, icon2: Women},
+        other: {value: 78, icon2: svg},
     }
 };
 const testConfig = new Config(config);

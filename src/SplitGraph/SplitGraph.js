@@ -1,15 +1,15 @@
-import React, { useRef, useState, useEffect} from 'react';
+import React, { useRef} from 'react';
 import useAdaptiveSize from './useAdaptiveSize';
 import SplitUnit from './SplitUnit';
 import RightCurveSplitUnit from './RightCurveSplitUnit';
 import LeftCurveSplitUnit from './LeftCurveSplitUnit';
 import SplitUnitContent from './SplitUnitContent';
 import CSSTransitionedSteps from './CSSTransitionedSteps';
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 
 // Constants
 
-const BORDER_RADIUS = "0px";
+const BORDER_RADIUS = "15px";
 const HeightDiv = "245px";
 
 const ContainerDiv = styled.div`
@@ -30,7 +30,7 @@ const ViewDiv = styled.div`
     text-align: center;
     display: flex;
     justify-content: center;
-    transition: opacity 0.5s;
+    transition: opacity 0.95s;
     opacity: 1;
 `;
 
@@ -40,8 +40,21 @@ const SplitUnitsDiv = styled.div`
     justify-content: center;
     height: ${HeightDiv};
     margin: auto;
-    transition: opacity 0.5s;
+    transition: opacity 0.95s;
     opacity: 1;
+`;
+
+const fadeIn = keyframes`
+    0%, 50%{
+        opacity: 0;
+    }
+    80% {
+        opacity: 1
+    }
+`;
+
+const FadeInUnitContent = styled(SplitUnitContent)`
+    animation: ${fadeIn} 2.5s ease-out forwards;
 `;
 
 const SplitGraph = ({title, categoryImage, data, bgColor = "green"}) => {
@@ -54,31 +67,30 @@ const SplitGraph = ({title, categoryImage, data, bgColor = "green"}) => {
         <div style={{marginBottom: '25px', textAlign: 'center'}}>
           {title}
         </div>
-
+        
         <CSSTransitionedSteps>
-            <ViewDiv 
+            <ViewDiv
                 width={(sumTotal * scale) + "px"}
                 radius={BORDER_RADIUS}
                 enter={{opacity: 0.9}}
                 exit={{opacity: 0.8}}
                 background={bgColor}
-            > 
-                <img src={categoryImage} 
-                     style={{
-                            margin: '10px'
-                         }}
-                     
-                     />
+                >
+                    <img src={categoryImage}
+                    style={{
+                    margin: '10px'
+                    }}
+                />
             </ViewDiv>
-
-            <ViewDiv 
+           
+            <ViewDiv
                 width={(sumTotal * scale) + "px"}
                 radius={BORDER_RADIUS}
                 enter={{opacity: 0.8}}
                 exit={{opacity: 1}}
                 background={bgColor}
-            > 
-                <h1>{ sumTotal} Workers</h1>
+                >
+                   <h1 style={{margin: "auto"}}>{ sumTotal} Participants</h1>
             </ViewDiv>
             <SplitUnitsDiv>
                 {getSplittingUnits(data, scale, bgColor, BORDER_RADIUS)}
@@ -105,11 +117,7 @@ function getSplittingUnits(data, scale, bgColor, radius = "45px"){
                         key={key}
                         style={{background: bgColor}}
                         >
-                           <SplitUnitContent 
-                                icon1={icon1}
-                                number={value}
-                                icon2={icon2}
-                                />
+                           { createSplitUnitContent(icon1, value, icon2)}
                     </LeftCurveSplitUnit>
         }
 
@@ -121,11 +129,7 @@ function getSplittingUnits(data, scale, bgColor, radius = "45px"){
                         key={key}
                         style={{background: bgColor}}
                         >
-                            <SplitUnitContent 
-                                icon1={icon1}
-                                number={value}
-                                icon2={icon2}
-                                />
+                            { createSplitUnitContent(icon1, value, icon2)}
                     </RightCurveSplitUnit>
         }
 
@@ -134,14 +138,19 @@ function getSplittingUnits(data, scale, bgColor, radius = "45px"){
                     key={key}
                     style={{background: bgColor}}
                     >
-                    <SplitUnitContent 
-                            icon1={icon1}
-                            number={value}
-                            icon2={icon2}
-                            />
+                        { createSplitUnitContent(icon1, value, icon2)}
                 </SplitUnit>;
     });
 }    
+
+function createSplitUnitContent(icon1, number, icon2)
+{
+    return <FadeInUnitContent 
+        icon1={icon1}
+        number={number}
+        icon2={icon2}
+    />;
+}
 
 function getTotal(data)
 {
